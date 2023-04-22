@@ -1,1 +1,16 @@
-<p>login works!</p>
+<div id="bg"></div>
+<form [formGroup]="formularioLog" (ngSubmit)="login()">
+    <div class="form-field">
+      <input  placeholder="ID" formControlName="id" required/>
+    </div>
+    
+    <div class="form-field">
+      <input type="password" placeholder="Password" formControlName="pass" required/>                         </div>
+    
+    <div class="form-field">
+      <button class="btn" type="submit" [disabled]="formularioLog.invalid">Log in</button>
+    </div>
+    <div class="form-field">
+        <button class="btn-sec" type="submit" routerLink="/auth/register">Registrar</button>
+    </div>
+</form>
