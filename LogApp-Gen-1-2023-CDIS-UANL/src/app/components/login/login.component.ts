@@ -19,8 +19,8 @@ export class LoginComponent {
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private toastr:ToastrService)
-  {}
+    private toastr: ToastrService
+  ) {}
 
   login() {
     /* console.log(this.formularioLog.value);
@@ -28,9 +28,23 @@ export class LoginComponent {
     this.router.navigateByUrl('/dashboard')*/
     if (this.formularioLog.valid) {
       const { id, pass } = this.formularioLog.value;
-      this.router.navigateByUrl('/dashboard')
-    } else {
-      this.toastr.error('Verifique sus datos','Error');
+      this.authService.login(id, pass)
+        .subscribe(res => {
+          if (res === true) {
+            this.router.navigateByUrl('/dashboard');
+            this.toastr.success(id, 'Ingreso correcto');
+          } else {
+            console.log(res);
+            this.toastr.error(res, 'Error', {
+              timeOut: 4000,
+              progressAnimation: 'increasing'
+            })
+
+          }
+        })
+      }
+    else {
+      this.toastr.error('Verifique sus datos', 'Error');
     }
   }
 }
